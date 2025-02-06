@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View tunas.room.book View List -->
+    <record id="view_tunas_room_book_list" model="ir.ui.view">
+        <field name="name">view.tunas.room.book.list</field>
+        <field name="model">tunas.room.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="order_name" /> 
+                <field name="room_id" /> 
+                <field name="order_date" /> 
+                <field name="description" /> 
+                <field name="state" decoration-success="state == 'done'" decoration-info="state == 'draft'" decoration-danger="state == 'cancel'" decoration-warning="state == 'ongoing'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View tunas.room.book form -->
+    <record id="view_tunas_room_book_form" model="ir.ui.view">
+        <field name="name">view.tunas.room.book.form</field>
+        <field name="model">tunas.room.book</field>
+        <field name="arch" type="xml">
+            <form string="Tunas Room Book">
+                <header>
+                    <button string="Set to Draft" type="object" name="action_draft" class="oe_highlight" invisible="state not in ['done', 'cancel'] or not id"/>
+                    <button string="Set to Ongoing" type="object" name="action_ongoing" class="oe_highlight" invisible="state != 'draft' or not id"/>
+                    <button string="Set to Done" type="object" name="action_done" class="oe_highlight" invisible="state != 'ongoing' or not id"/>
+                    <button string="Set to Cancel" type="object" name="action_cancel" class="oe_highlight" invisible="state != 'draft' or not id"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ongoing,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="id" invisible="True"/>
+                            <field name="order_name"/>
+                            <field name="room_id"/>
+                            <field name="order_date"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>        
+        </field>
+    </record>
+
+    <!-- View tunas.room.book search -->
+    <record id="view_tunas_room_book_search" model="ir.ui.view">
+        <field name="name">view.tunas.room.book.search</field>
+        <field name="model">tunas.room.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="order_name"/>
+                <field name="room_id"/>
+                <field name="order_date"/>
+                <field name="description"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Ongoing" name="ongoing" domain="[('state','=','ongoing')]"/>
+                <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                <filter string="Cancelled" name="cancel" domain="[('state','=','cancel')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                    <filter string="Room" name="room" domain="[]" context="{'group_by':'room_id'}"/>
+                    <filter string="Order Date" name="order_date" domain="[]" context="{'group_by':'order_date'}"/>
+                    <filter string="Status" name="state" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>        
+        </field>
+    </record>
+
+    <!-- Action tunas.room.book -->
+    <record id="action_tunas_room_book" model="ir.actions.act_window">
+        <field name="name">Tunas Room Book</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tunas.room.book</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Tunas Room Book.
+            </p>
+        </field>
+    </record>
+
+</odoo>

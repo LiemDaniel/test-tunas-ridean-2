@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View tunas.room View List -->
+    <record id="view_tunas_room_list" model="ir.ui.view">
+        <field name="name">view.tunas.room.list</field>
+        <field name="model">tunas.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" /> 
+                <field name="room_type" /> 
+                <field name="room_location" />
+                <field name="room_capacity" /> 
+                <field name="description" /> 
+            </tree>
+        </field>
+    </record>
+
+    <!-- View tunas.room form -->
+    <record id="view_tunas_room_form" model="ir.ui.view">
+        <field name="name">view.tunas.room.form</field>
+        <field name="model">tunas.room</field>
+        <field name="arch" type="xml">
+            <form string="Tunas Room">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Room Name..." class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="room_type"/>
+                            <field name="room_location"/>
+                            <field name="room_capacity"/>
+                        </group>
+                        <group>
+                            <field name="room_image" widget="image" class="oe_avatar"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>        
+        </field>
+    </record>
+
+    <!-- View tunas.room search -->
+    <record id="view_tunas_room_search" model="ir.ui.view">
+        <field name="name">view.tunas.room.search</field>
+        <field name="model">tunas.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="room_type"/>
+                <field name="room_location"/>
+                <field name="room_capacity"/>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                    <filter string="Room Type" name="group_room_type" domain="[]" context="{'group_by':'room_type'}"/>
+                    <filter string="Location" name="group_location" domain="[]" context="{'group_by':'room_location'}"/>
+                    <filter string="Capacity" name="group_capacity" domain="[]" context="{'group_by':'room_capacity'}"/>
+                </group>
+            </search>
+        </field>    
+    </record>
+
+    <!-- Action tunas.room -->
+    <record id="action_tunas_room" model="ir.actions.act_window">
+        <field name="name">Tunas Room</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tunas.room</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Tunas Room.
+            </p>
+        </field>
+    </record>
+
+</odoo>
